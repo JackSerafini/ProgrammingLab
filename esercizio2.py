@@ -1,18 +1,16 @@
-from datetime import datetime
+from datetime import datetime 
 
 def lettura_date():
     my_file = open('shampoo_sales.csv', 'r')
-    lista = []
+    dates = []
     for line in my_file:
-        elements = line.split(',')
-        if elements[0] != 'Date':
-            lista_delle_date = datetime.strptime(elements[0], '%d-%m-%Y')
-            lista.append(lista_delle_date)
-    
+        tmp = line.split(',')
+        if tmp[0] != 'Date':
+            data = datetime.strptime(tmp[0], '%d-%m-%Y')
+            dates.append(data)
     my_file.close()
-    return lista
+    return dates
 
-date_finali = lettura_date()
-print('Dates:\n')
-for data in date_finali:
+date_vendite = lettura_date()
+for data in date_vendite:
     print(data.strftime('%d-%m-%Y'))

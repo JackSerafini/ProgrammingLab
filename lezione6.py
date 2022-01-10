@@ -1,8 +1,7 @@
 class CSVFile():
     def __init__(self, name):
         self.name = name
-    
-#aprire il file e tornare i dati dal file CSV come lista di liste
+
     def get_data(self):
         lista = []
         my_file = open(self.name, 'r')
