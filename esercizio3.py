@@ -11,7 +11,7 @@ class CSVFile():
         my_file.close()
         return lista
 
-    def get_date_vendite():
+    def get_date_vendite(self):
         my_file = open('shampoo_sales.csv', 'r')
         dates = []
         for line in my_file:
