@@ -1,45 +1,66 @@
-# custom exception
+# classe per le eccezioni
 class ExamException(Exception):
     pass
 
-# class used to calculate the moving average
-class MovingAverage():
-    def __init__(self, lunghezza):
-        self.lunghezza = lunghezza
+# classe per calcolare la differenza
+class Diff():
+    # inizializzazione
+    def __init__(self, ratio = 1):
 
-    def compute(self, lista):
+        # check del ratio: NO NONE
+        if ratio == None:
+            raise ExamException('Errore! Il ratio deve essere un valore valido!')
+
+        # check del ratio: NUMERO 
+        if type(ratio) != int and type(ratio) != float and ratio != None:
+            raise ExamException('Errore! Il valore immesso per il ratio non è un numero!')
+
+        # check del ratio: NO ZERO
+        if ratio == 0:
+            raise ExamException('Errore! Impossibile dividere per zero!')
+
+        # check del ratio: POSITIVO
+        if ratio < 0:
+            raise ExamException('Errore! Non ha significato un ratio minore di zero!')
+
+        # check passato
+        self.ratio = ratio
+        #if self.ratio == None:
+        #    self.ratio = default_ratio
+
+    # metodo per calcolare la differenza
+    def compute(self, lista = None):
+
+        # se nessuna lista passata
+        if lista == None:
+            raise ExamException('Errore! Non è stata passata alcuna lista!')
+
+        # check esistenza della lista
+        if type(lista) != list:
+            raise ExamException('Errore! Quella inserita non è una lista!')
+
+        # check della lista: NON VUOTA 
+        if lista == []:
+            raise ExamException('Errore! La lista è vuota!')
+
+        # check della lista: NUMERI 
+        for index, element in enumerate(lista):
+            try:
+                element = float(element)
+                lista[index] = element
+            except:
+                raise ExamException('Errore! I valori inseriti nella lista non sono numeri!')
         
-        risultati = []
+        # check della lista: >1 ELEMENTO
+        if len(lista) < 2:
+            raise ExamException('Errore! Impossibile fare la differenza con un singolo elemento!')
+
+        # check passato
+        final_list = []
         i = 0
-        k = self.lunghezza
+        while i in range(len(lista) - 1):
+            tmp = lista[i+1] - lista[i]
+            final_list.append(tmp/self.ratio)
+            i += 1
 
-        #try:
-        #    for element in lista:
-        #        if type(element) != int or float:
-        #            tmp = float(element)
-        #            
-        #except ExamException:
-        #    return 'Errore, i valori non sono numerici'
-
-        try:
-            if lista == []:
-                raise ExamException()
-        except ExamException:
-            return 'Errore, lista valori vuota'
-
-        try:
-            if self.lunghezza > len(lista):
-                raise ExamException()
-        except ExamException:
-            return 'Errore, lunghezza del passo troppo grande'
-
-        for i in range(len(lista)-self.lunghezza+1):
-            tmp = lista[i:k]
-            risultato = sum(tmp)/self.lunghezza
-            risultati.append(risultato)
-            k += 1
-        return risultati
-
-moving_average = MovingAverage()
-#controllare l'input delle liste
-#se la lista non è divisibile per la lunghezza?
+        return final_list
