@@ -228,8 +228,3 @@ def compute_avg_monthly_difference(time_series=None, first_year=None, last_year=
         result.append(risultato)
     
     return result
-
-time_series_file = CSVTimeSeriesFile('test.csv')
-time_series = time_series_file.get_data()
-#print(time_series)
-(compute_avg_monthly_difference(time_series, '12', '13'))
