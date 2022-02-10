@@ -7,7 +7,7 @@ def somma():
     for line in my_file:
         elements = line.split(',')
         if elements[0] != 'Date':
-            date = elements[0]
+            dates = elements[0]
             value = elements[1]
 
             #creare una liste delle vendite
